@@ -1,0 +1,128 @@
+{
+  "runId": "ffb86b21-35b5-47c5-aabe-a070ba8d39ea",
+  "scenario": "admissions",
+  "dataClass": "synthetic",
+  "mode": "historical-replay",
+  "status": "completed",
+  "startedAt": "2026-09-26T10:42:36.158Z",
+  "durationMs": 59120,
+  "outputs": {
+    "plan": {
+      "steps": [
+        "分析咨询",
+        "依据模拟资料推荐",
+        "汇总并人工审核"
+      ],
+      "boundary": "只生成草稿，无外部发送"
+    },
+    "admissions": {
+      "age": 8,
+      "foundation": "零基础",
+      "goals": [
+        "锻炼体能",
+        "培养团队意识"
+      ],
+      "area": "青山湖",
+      "availability": "周末",
+      "trialIntent": "想先试听",
+      "missing": []
+    },
+    "course": {
+      "courseId": "foundation",
+      "reasons": [
+        "用户为零基础，符合基础班适合对象",
+        "目标为锻炼体能与培养团队意识，基础班涵盖协调性与团队意识训练"
+      ],
+      "prerequisites": [],
+      "unknown": [
+        "价格",
+        "优惠",
+        "校区地址",
+        "班级年龄范围",
+        "试听是否收费",
+        "名额",
+        "具体排课时间",
+        "教练资质"
+      ],
+      "price": null,
+      "schedule": null
+    },
+    "report": {
+      "summary": "本次模拟咨询：孩子8岁，零基础，家住青山湖，诉求为锻炼体能和培养团队意识，周末有时间，想先试听。依据模拟课程资料，初步推荐基础班（覆盖协调性与团队意识训练），但需注意基础班本身侧重篮球技能，锻炼体能与团队意识亦可由「先试听」环节进一步确认契合度。所有价格、校区、年龄范围、试听收费、名额、排课与教练资质均未知，须由工作人员确认，最终分班以教练评估为准。",
+      "parentReply": "家长您好，感谢咨询。孩子目前8岁、零基础，结合您希望锻炼体能和培养团队意识的目标，我们初步建议从基础班了解课程是否契合，具体班型和年龄段需待工作人员结合校区实际进一步确认。您提到周末方便、想先试听，我们已记录初步试听意向。关于价格、优惠、校区地址、班级年龄范围、试听是否收费、名额、具体排课时间及教练资质等信息，待工作人员核实后另行与您确认，最终分班以现场教练评估为准。以上为人工审核草稿，尚未预约或发送。",
+      "followUp": [
+        "待工作人员确认基础班是否匹配8岁年龄范围及所在校区实际开设情况",
+        "确认价格、优惠与试听是否收费",
+        "确认青山湖附近校区地址与周末具体排课时间",
+        "确认名额情况并核实教练资质",
+        "根据确认结果组织试听安排，由教练评估后确定最终分班"
+      ],
+      "unknown": [
+        "价格",
+        "优惠",
+        "校区地址",
+        "班级年龄范围",
+        "试听是否收费",
+        "名额",
+        "具体排课时间",
+        "教练资质"
+      ],
+      "evidenceBoundary": "模拟数据，建议不等于已预约或已发送"
+    }
+  },
+  "trace": [
+    {
+      "agent": "sports-coordinator",
+      "sessionId": "f4961aa6-3379-45a7-a500-70ee792c50a5",
+      "stage": "plan",
+      "startedAt": "2026-09-26T10:42:36.159Z",
+      "durationMs": 13004,
+      "exitCode": 0,
+      "transport": "openclaw-cli-gateway",
+      "model": "deepseek-v4-pro",
+      "openclawRunId": "41e98fa2-e6f5-48b6-9825-f805125ef5f9",
+      "provider": "deepseek"
+    },
+    {
+      "agent": "sports-admissions",
+      "sessionId": "820a2952-d481-4e7b-ad12-67b77b8c30c1",
+      "stage": "admissions",
+      "startedAt": "2026-09-26T10:42:49.165Z",
+      "durationMs": 11756,
+      "exitCode": 0,
+      "transport": "openclaw-cli-gateway",
+      "model": "deepseek-v4-pro",
+      "openclawRunId": "dbb45d07-0227-4d23-8346-d9b63349c37d",
+      "provider": "deepseek"
+    },
+    {
+      "agent": "sports-course",
+      "sessionId": "b725f2e8-a96f-41c8-ae00-12504aea8398",
+      "stage": "course",
+      "startedAt": "2026-09-26T10:43:00.923Z",
+      "durationMs": 15014,
+      "exitCode": 0,
+      "transport": "openclaw-cli-gateway",
+      "model": "deepseek-v4-pro",
+      "openclawRunId": "099fe8f4-fc58-45b0-8067-197f7ae3317b",
+      "provider": "deepseek"
+    },
+    {
+      "agent": "sports-coordinator",
+      "sessionId": "151ef77f-329f-4c3d-afb5-1697c717284e",
+      "stage": "report",
+      "startedAt": "2026-09-26T10:43:15.939Z",
+      "durationMs": 19338,
+      "exitCode": 0,
+      "transport": "openclaw-cli-gateway",
+      "model": "deepseek-v4-pro",
+      "openclawRunId": "d545e9dd-4cf2-4e00-abb8-d72eb5ac4367",
+      "provider": "deepseek"
+    }
+  ],
+  "review": {
+    "approved": false,
+    "sent": false
+  },
+  "provenance": "由内置模拟案例实际调用 OpenClaw + DeepSeek 后保存；不是当前实时输出，且不附原始模型封装或密钥"
+}

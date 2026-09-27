@@ -1,0 +1,12 @@
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { ROOT } from '../src/runtime.mjs';
+import { runWorkflow } from '../src/workflow.mjs';
+const cases=JSON.parse(await readFile(join(ROOT,'examples/cases.json'),'utf8'));
+const id=process.argv[2] || 'newcomer';
+const data=cases.find(c=>c.id===id);if(!data)throw new Error('未知案例');
+console.log('只使用内置模拟数据。此次会实际调用模型并产生费用。');
+const result=await runWorkflow({...data,synthetic:true,onEvent:e=>{if(e.type==='stage-start')console.log(`开始 ${e.stage}`);if(e.type==='stage-done')console.log(`完成 ${e.stage} ${e.proof.durationMs}ms`);}});
+await mkdir(join(ROOT,'.local'),{recursive:true});
+await writeFile(join(ROOT,'.local',`verified-${data.scenario}.json`),JSON.stringify(result,null,2));
+console.log(`完成 ${result.trace.length} 次真实调用。结果位于 .local/verified-${data.scenario}.json`);

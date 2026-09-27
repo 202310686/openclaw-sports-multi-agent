@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { ROOT } from '../src/runtime.mjs';
+import { mkdtemp } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+test('HTTP boundary checks without paid model calls', async t => {
+  const port = 18891;
+  const dataDir=await mkdtemp(join(tmpdir(),'sports-http-'));
+  const processChild=spawn(process.execPath,['src/server.mjs'],{cwd:ROOT,env:{...process.env,PORT:String(port),SPORTS_DATA_DIR:dataDir},windowsHide:true,stdio:'ignore'});
+  t.after(()=>processChild.kill());
+  const url=`http://127.0.0.1:${port}`;
+  let ready=false;
+  for(let i=0;i<50;i++){try{const r=await fetch(url+'/api/health');if(r.ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}
+  assert.equal(ready,true);
+  const post=data=>fetch(url+'/api/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  const health=await(await fetch(url+'/api/health')).json();assert.equal(health.service,'sports-prototype');
+  const cases=await(await fetch(url+'/api/cases')).json();assert.equal(cases.length,5);
+  assert.equal((await fetch(url+'/missing')).status,404);
+  assert.equal((await fetch(url+'/api/health',{headers:{Origin:'https://attacker.example'}})).status,403);
+  const base={input:'模拟孩子8岁零基础',scenario:'admissions',synthetic:true,acceptCost:true};
+  assert.equal((await post({...base,synthetic:false})).status,400);
+  assert.equal((await post({...base,acceptCost:false})).status,400);
+  assert.equal((await post({...base,input:'模拟联系13812345678'})).status,400);
+  assert.equal((await post({...base,scenario:'unsupported'})).status,400);
+  const invalid=await fetch(url+'/api/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:'{'});assert.equal(invalid.status,400);
+  assert.equal((await fetch(url+'/api/runs/00000000-0000-0000-0000-000000000000')).status,404);
+  const html=await fetch(url+'/');assert.equal(html.status,200);assert.match(html.headers.get('content-security-policy'),/frame-ancestors 'none'/);assert.match(await html.text(),/非 OpenClaw 官方控制台/);
+  const exported=await fetch(url+'/api/replay/export?scenario=admissions');assert.equal(exported.status,200);assert.match(exported.headers.get('content-disposition'),/attachment/);const report=await exported.json();assert.equal(report.mode,'historical-replay');assert.equal(report.trace.length,4);
+  const coach=await(await fetch(url+'/api/replay?scenario=coach')).json();assert.equal(coach.scenario,'coach');assert.equal(coach.trace.length,3);
+  assert.equal((await fetch(url+'/api/replay?scenario=invalid')).status,400);
+  assert.equal((await(await fetch(url+'/api/health')).json()).busy,false);
+});

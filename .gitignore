@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.local/
+*.log
+*.sqlite*
+*.bak
+auth-profiles.json
+openclaw.json
+credentials/
+sessions/
+dist/

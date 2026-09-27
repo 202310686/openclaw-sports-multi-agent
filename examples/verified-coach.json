@@ -1,0 +1,108 @@
+{
+  "runId": "aa29cbd7-b71a-461b-8123-329fec6b3515",
+  "scenario": "coach",
+  "dataClass": "synthetic",
+  "mode": "historical-replay",
+  "status": "completed",
+  "startedAt": "2026-09-26T10:38:36.314Z",
+  "durationMs": 44050,
+  "outputs": {
+    "plan": {
+      "steps": [
+        "分析咨询",
+        "依据模拟资料推荐",
+        "汇总并人工审核"
+      ],
+      "boundary": "只生成草稿，无外部发送"
+    },
+    "coach": {
+      "observations": [
+        "本节运球基本掌握",
+        "投篮动作稳定性不足",
+        "课堂参与积极",
+        "团队配合一般",
+        "体能后半段下降"
+      ],
+      "strengths": [
+        "运球基本掌握",
+        "课堂参与积极"
+      ],
+      "improvements": [
+        "投篮动作稳定性",
+        "团队配合",
+        "体能后半段耐力"
+      ],
+      "nextTraining": [
+        "加强投篮动作稳定性练习",
+        "提升团队配合练习",
+        "合理安排体能分配与耐力训练"
+      ],
+      "historyLimit": "无历史对比，只总结本节观察"
+    },
+    "report": {
+      "summary": "学员A（9岁）本期训练运球基本掌握、课堂参与积极；投篮动作稳定性不足，团队配合一般，体能后半段有所下降。由于缺乏历史成绩与出勤数据，仅总结本节观察，不作进步对比。",
+      "parentReply": "您好，我们已完成对学员A本节训练情况的内部整理（草稿，待人工审核）。本节表现：运球基本掌握，课堂参与积极；需要继续加强的方面包括投篮动作稳定性、团队配合以及后半段的体能分配与耐力。以上仅为本节观察，因暂无历史数据不作进步对比。具体训练安排与后续建议请以教练评估及工作人员正式回复为准。",
+      "followUp": [
+        "建议下一阶段加强投篮动作稳定性练习",
+        "建议加强团队配合练习",
+        "建议合理安排体能分配与耐力训练",
+        "最终分班及训练计划由教练评估确认"
+      ],
+      "unknown": [
+        "价格",
+        "优惠",
+        "校区地址",
+        "班级年龄范围",
+        "试听是否收费",
+        "名额",
+        "具体排课时间",
+        "教练资质",
+        "历史成绩与出勤数据"
+      ],
+      "evidenceBoundary": "模拟数据，建议不等于已预约或已发送"
+    }
+  },
+  "trace": [
+    {
+      "agent": "sports-coordinator",
+      "sessionId": "ba7a808e-0a08-4827-8480-2d3c31a374d2",
+      "stage": "plan",
+      "startedAt": "2026-09-26T10:38:36.316Z",
+      "durationMs": 11435,
+      "exitCode": 0,
+      "transport": "openclaw-cli-gateway",
+      "model": "deepseek-v4-pro",
+      "openclawRunId": "eb72026a-9d97-4d5f-90e4-12dca37cee04",
+      "provider": "deepseek"
+    },
+    {
+      "agent": "sports-coach",
+      "sessionId": "e58fbc5e-036e-4c73-b3a7-d45268fe3c08",
+      "stage": "coach",
+      "startedAt": "2026-09-26T10:38:47.754Z",
+      "durationMs": 19527,
+      "exitCode": 0,
+      "transport": "openclaw-cli-gateway",
+      "model": "deepseek-v4-pro",
+      "openclawRunId": "191e7b00-06e7-4fa3-b7ea-ab5414ab393a",
+      "provider": "deepseek"
+    },
+    {
+      "agent": "sports-coordinator",
+      "sessionId": "50aa9392-75f8-43f5-b759-9d2ebb6ab75a",
+      "stage": "report",
+      "startedAt": "2026-09-26T10:39:07.283Z",
+      "durationMs": 13080,
+      "exitCode": 0,
+      "transport": "openclaw-cli-gateway",
+      "model": "deepseek-v4-pro",
+      "openclawRunId": "e4eed358-3a87-4900-a264-55f5b3ddd1af",
+      "provider": "deepseek"
+    }
+  ],
+  "review": {
+    "approved": false,
+    "sent": false
+  },
+  "provenance": "由内置模拟案例实际调用 OpenClaw + DeepSeek 后保存；不是当前实时输出，且不附原始模型封装或密钥"
+}

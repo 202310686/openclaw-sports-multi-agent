@@ -1,0 +1,17 @@
+{
+  "name": "openclaw-sports-multi-agent",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "基于 OpenClaw 的少儿体育培训 Multi-Agent 业务自动化原型",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "start": "node src/server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "demo": "node scripts/demo.mjs",
+    "scan": "node scripts/scan.mjs",
+    "rollback": "node scripts/setup.mjs --rollback"
+  },
+  "engines": { "node": ">=24.16" },
+  "license": "MIT"
+}
